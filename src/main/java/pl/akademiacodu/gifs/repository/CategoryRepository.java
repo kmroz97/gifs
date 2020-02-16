@@ -2,9 +2,11 @@ package pl.akademiacodu.gifs.repository;
 
 import org.springframework.stereotype.Repository;
 import pl.akademiacodu.gifs.model.Category;
+import pl.akademiacodu.gifs.model.Gif;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Repository
 public class CategoryRepository {
@@ -18,5 +20,15 @@ public class CategoryRepository {
 
     public List<Category> getAllCategories() {
         return ALL_CATEGORIES;
+    }
+
+    public Category getCategoryById(int id) {
+        Category result = null;
+        for (Category category: ALL_CATEGORIES) {
+            if(category.getId()==id) {
+                result=category;
+            }
+        }
+        return result;
     }
 }

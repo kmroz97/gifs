@@ -4,8 +4,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import pl.akademiacodu.gifs.model.Category;
+import pl.akademiacodu.gifs.model.Gif;
 import pl.akademiacodu.gifs.repository.CategoryRepository;
+import pl.akademiacodu.gifs.repository.GifRepository;
 
 import java.util.List;
 
@@ -14,6 +17,9 @@ public class CategoryController {
 
     @Autowired
     CategoryRepository categoryRepository;
+
+    @Autowired
+    GifRepository gifRepository;
 
     @GetMapping("/categories")
     public String getAllCategories(ModelMap modelMap) {
@@ -24,12 +30,15 @@ public class CategoryController {
         return "categories";
     }
 
-    @GetMapping("/categories/{number}")
-    public String getGifsFromCategory(ModelMap modelMap) {
-        List<Category> categoryList = categoryRepository.getAllCategories();
+    @GetMapping("/category/{id}")
+    public String GifsCategory(@PathVariable int id, ModelMap modelMap) {
+        Category category = categoryRepository.getCategoryById(id);
 
-        modelMap.put("categories", categoryList);
+        List<Gif> gifs = gifRepository.getGifsByCategory(id);
 
-        return "categories";
+        modelMap.put("category", category);
+        modelMap.put("gifs", gifs);
+
+        return "category";
     }
 }

@@ -40,4 +40,11 @@ public class GifRepository {
         }
         return result;
     }
+
+    public List<Gif> getGifsByCategory(int id) {
+
+        return ALL_GIFS.stream()
+                .filter(g->g.getCategoryId() == id)
+                .collect(Collectors.toList());
+    }
 }
