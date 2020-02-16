@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.ResponseBody;
 import pl.akademiacodu.gifs.model.Gif;
 import pl.akademiacodu.gifs.repository.GifRepository;
@@ -31,6 +32,14 @@ public class GifsController {
 
         modelMap.put("gifs", gifList);
 
+        return "home";
+    }
+
+    @GetMapping("/gif/{name}")
+    public String getGifByName(@PathVariable String name, ModelMap modelMap){
+
+        Gif g = gifRepository.getGifByName(name);
+        modelMap.put("gifs", g);
         return "home";
     }
 

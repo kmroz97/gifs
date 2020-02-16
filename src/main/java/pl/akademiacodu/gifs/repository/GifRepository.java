@@ -30,4 +30,14 @@ public class GifRepository {
                 .filter(Gif::getFavorite)
                 .collect(Collectors.toList());
     }
+
+    public Gif getGifByName(String name) {
+        Gif result = null;
+        for (Gif gif : ALL_GIFS) {
+            if(gif.getName().equals(name)){
+                result=gif;
+            }
+        }
+        return result;
+    }
 }
